@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Diario {
   static final private Diario instance = new Diario();
   
-  private ArrayList<String> eventos;
+  private static ArrayList<String> eventos;
   
   static public Diario getInstance() {
     return instance;
@@ -17,7 +17,7 @@ public class Diario {
     eventos = new ArrayList<>();
   }
   
-  void ocurreEvento (String e) {
+  public static void ocurreEvento(String e) {
     eventos.add (e);
   }
   
@@ -33,3 +33,4 @@ public class Diario {
     return salida;
   }
 }
+
