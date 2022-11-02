@@ -77,12 +77,6 @@ del tablero para obtener el valor correcto.
 Ejemplo: En un tablero de 20 casillas, si origen=18 y destino=3, el resultado de la tirada
 sería 3-18=-15. En ese caso, sumando el tamaño del tablero, se obtendría -15+20=5.
 Efectivamente, para ir de la casilla 18 a la número 3 se avanzan 5 casillas.*/
-    public enum Sorpresa {
-        IRCARCEL, IRCASILLA, PAGARCOBRAR, PORCASAHOTEL, PORJUGADOR, IRACASILLA, SALIRCARCEL
-    }
-    public enum Casilla {
-        CALLE, JUEZ, SORPRESA, IMPUESTO, SALIDA, CARCEL, DESCANSO
-    }
     public class Tablero {
         private int numCasillaCarcel;
         private ArrayList<Casilla> casillas;
