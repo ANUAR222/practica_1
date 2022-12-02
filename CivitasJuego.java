@@ -50,26 +50,33 @@ bancarrota
 función de su saldo. Investiga como ordenar una colección en Java y Ruby teniendo en
 cuenta que ya creaste los métodos compareTo y <=> (respectivamente) para las instancias
 de la clase Jugador*/
+
+    private static final int CASAS_MAX = 4;
+    private static final int HOTELES_MAX = 4;
+    private static final int PRECIO_LIBERTAD = 200;
+    private static final int SALDO_SALIDA = 1000;
+
     private ArrayList<Jugador> jugadores;
-    private tablero.Tablero tablero;
-    private int indiceJugadorActual;
+    private tablero tablero;
     private MazoSorpresas mazo;
-    private civitas.EstadosJuego estado;
+    private EstadosJuego estado;
+    private int indiceJugadorActual;
     private GestorEstados gestorEstados;
     private Dado dado;
-    public CivitasJuego(ArrayList<String> nombres){
-        jugadores = new ArrayList<Jugador>();
-        for (int i = 0; i < nombres.size(); i++) {
-            jugadores.add(new Jugador(nombres.get(i)));
+
+    CivitasJuego(ArrayList<String> nombres) {
+        Dado Dado = new Dado();
+        jugadores = new ArrayList<>();
+        for (String nombre: nombres) {
+            jugadores.add(new Jugador(nombre));
         }
         gestorEstados = new GestorEstados();
         estado = gestorEstados.estadoInicial();
-        Dado dado = new Dado();
-        indiceJugadorActual = dado.quienEmpieza(jugadores.size());
+        indiceJugadorActual = Dado.quienEmpieza(jugadores.size());
         mazo = new MazoSorpresas();
         inicializaTablero(mazo);
         inicializaMazoSorpresas(tablero);
     }
-    public void actualizarInfo(){
+
 
 }

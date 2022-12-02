@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 
 public class tablero {
-    public class Tablero {
         private int numCasillaCarcel;
         private ArrayList<Casilla> casillas;
         private int porSalida;
         private Boolean tieneJuez;
-        public Tablero(int numCasillaCarcel){
+        public tablero(int numCasillaCarcel){
             this.numCasillaCarcel = numCasillaCarcel;
             casillas = new ArrayList<>();
             casillas.add(Casilla.SALIDA);
@@ -69,4 +68,3 @@ public class tablero {
         }
     }
 
-}
