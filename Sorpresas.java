@@ -3,30 +3,41 @@ import java.util.ArrayList;
 public class Sorpresas {
     private String texto;
     private int valor;
-
+    private tablero tab;
     private Sorpresa tipo;
+    private MazoSorpresas mazoS;
     Sorpresas(Sorpresa TipoSorpresa, tablero tabler) {
+        init();
         valor=tabler.getCarcel();
         texto="La fortuna te sonrie, consigues un viaje gratuito a la Carcel. Disfruta tu falta de libertad";
         tipo=TipoSorpresa;
+        tab=tabler;
     }
     Sorpresas(Sorpresa TipoSorpresa, tablero tabler,int value){
+        init();
         valor=value;
         texto="Sientes que tu casilla actual es muy aburrida. Toca teletransportarse a una nueva.";
         tipo=TipoSorpresa;
+        tab=tabler;
     }
     Sorpresas(Sorpresa TipoSorpresa, MazoSorpresas mazo){
         init();
+        init();
         texto="El nuevo guardia de la carcel es el amigo de la hermana de la madre de tu vecino. Evita la Cárcel 1 vez";
         tipo=TipoSorpresa;
+        mazoS=mazo;
     }
     Sorpresas(Sorpresa TipoSorpresa, String text,int value){
+        init();
         tipo=TipoSorpresa;
         texto=text;
         valor=value;
     }
     void init(){
+        tab= null;
+        mazoS= null;
         valor=-1;
+
     }
    
     public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
@@ -63,17 +74,17 @@ public class Sorpresas {
     public void aplicarAJugador_irCarcel(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual,todos)){
             informe(actual,todos);
-            todos.get(actual).encarcelar(tablero.getCarcel());
+            todos.get(actual).encarcelar(tab.getCarcel());
         }
     }
     public void aplicarAJugador_irACasilla(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual,todos)){
             informe(actual,todos);
             int casillaActual=todos.get(actual).getCasillaActual();
-            int tirada=tablero.calcularTirada(casillaActual,valor);
-            int nuevaPosicion=tablero.nuevaPosicion(casillaActual,tirada);
+            int tirada=tab.calcularTirada(casillaActual,valor);
+            int nuevaPosicion=tab.nuevaPosicion(casillaActual,tirada);
             todos.get(actual).moverACasilla(nuevaPosicion);
-            tablero.getCasilla(nuevaPosicion).recibeJugador(actual,todos);
+            tab.getCasilla(nuevaPosicion).recibeJugador(actual,todos);
         }
     }
     public void aplicarAJugador_pagarCobrar(int actual, ArrayList<Jugador> todos){

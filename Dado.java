@@ -14,7 +14,7 @@ public class Dado {
            return 0;
     }
 
-    public boolean salgoDeLaCarcel() {
+    public static boolean salgoDeLaCarcel() {
         if(debug == true){
             boolean salgoDeLaCarcel = true;
         }

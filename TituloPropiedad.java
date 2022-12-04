@@ -147,5 +147,4 @@ public int cantidadCasasHoteles() {
 public String toString() {
 return "TituloPropiedad{" + "nombre=" + nombre + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", factorInteresesHipoteca=" + factorInteresesHipoteca + ", hipotecaBase=" + hipotecaBase + ", hipotecado=" + hipotecado + ", propietario=" + propietario + ", numCasas=" + numCasas + ", numHoteles=" + numHoteles + ", precioCompra=" + precioCompra + ", precioEdificar=" + precioEdificar + '}';
 }
-
 }

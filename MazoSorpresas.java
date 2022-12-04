@@ -5,13 +5,14 @@ import java.util.Collections;
 public class MazoSorpresas {
     private boolean barajada;
     private int usadas;
-    private ArrayList<SorpresaTemp> sorpresas;
+
+    private ArrayList<Sorpresas> sorpresas;
     private boolean debug;
-    private ArrayList<SorpresaTemp> cartasEspeciales;
-    private SorpresaTemp ultimaSorpresa;
+    private static ArrayList<Sorpresas> cartasEspeciales;
+    private Sorpresas ultimaSorpresa;
     private void init(){
-        sorpresas = new ArrayList<SorpresaTemp>();
-        cartasEspeciales = new ArrayList<SorpresaTemp>();
+        sorpresas = new ArrayList<Sorpresas>();
+        cartasEspeciales = new ArrayList<Sorpresas>();
         usadas=0;
         barajada=false;
     }
@@ -27,12 +28,12 @@ public class MazoSorpresas {
         init();
         debug=false;
     }
-    void alMazo(SorpresaTemp s){
+    void alMazo(Sorpresas s){
         if(barajada==false){
             sorpresas.add(s);
         }
     }
-    SorpresaTemp siguiente(){
+    Sorpresas siguiente(){
         if(barajada==false || usadas== sorpresas.size() ){
             if(debug==false){
                 Collections.shuffle(sorpresas);
@@ -46,20 +47,30 @@ public class MazoSorpresas {
         sorpresas.remove(0);
         return ultimaSorpresa;
     }
-    void inhabilitarCartaEspecial(SorpresaTemp sorpresa){
-        boolean existe = sorpresas.contains(sorpresa);
+    public static void inhabilitarCartaEspecial(Sorpresas sorpresa){
+        boolean existe = contains(sorpresa);
         if(existe==true){
-            sorpresas.remove(sorpresa);
+            remove(sorpresa);
             cartasEspeciales.add(sorpresa);
             Diario.ocurreEvento("Carta especial inhabilitada");
         }
     }
-    void habilitarCartaEspecial(SorpresaTemp sorpresa){
+    public static void habilitarCartaEspecial(Sorpresas sorpresa){
         boolean existe = cartasEspeciales.contains(sorpresa);
         if(existe==true){
             cartasEspeciales.remove(sorpresa);
-            sorpresas.add(sorpresa);
+            addSorpresa(sorpresa);
             Diario.ocurreEvento("Carta especial habilitada");
         }
     }
+    public void addSorpresa(Sorpresas sorpresa){
+        sorpresas.add(sorpresa);
+    }
+    public boolean contains(Sorpresas sorpresa){
+        return sorpresas.contains(sorpresa);
+    }
+    public void remove(Sorpresas sorpresa){
+        sorpresas.remove(sorpresa);
+    }
+
 }
