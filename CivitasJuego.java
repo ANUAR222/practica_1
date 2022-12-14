@@ -51,10 +51,10 @@ función de su saldo. Investiga como ordenar una colección en Java y Ruby tenie
 cuenta que ya creaste los métodos compareTo y <=> (respectivamente) para las instancias
 de la clase Jugador*/
     private ArrayList<Jugador> jugadores;
-    private tablero.Tablero tablero;
+    private tablero tablero;
     private int indiceJugadorActual;
     private MazoSorpresas mazo;
-    private civitas.EstadosJuego estado;
+    private EstadosJuego estado;
     private GestorEstados gestorEstados;
     private Dado dado;
     public CivitasJuego(ArrayList<String> nombres){
@@ -70,6 +70,20 @@ de la clase Jugador*/
         inicializaTablero(mazo);
         inicializaMazoSorpresas(tablero);
     }
+
+    public static civitas.Diario getDiario() {
+        return civitas.Diario.getInstance();
+    }
+
     public void actualizarInfo(){
 
+}
+
+    public Jugador getJugadorActual() {
+        return jugadores.get(indiceJugadorActual);
+    }
+
+    public Casilla getCasillaActual() {
+        return tablero.getCasilla(jugadores.get(indiceJugadorActual).getNumCasillaActual());
+    }
 }

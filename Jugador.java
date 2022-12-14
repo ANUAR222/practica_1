@@ -13,6 +13,7 @@ public class Jugador {
     private float SaldoInicial=7500;
     private float PasoPorSalida=1000;
     private float PrecioLibertad=200;
+
     private ArrayList<TituloPropiedad> propiedades;
     Jugador(String nombre) {
         this.nombre=nombre;
@@ -219,5 +220,12 @@ public class Jugador {
         total += cantidadCasasHoteles();
 
         return total;
+    }
+
+    public int getNumCasillaActual() {
+        return numCasillaActual;
+    }
+    public int getNumPropiedades() {
+        return propiedades.size();
     }
 }
