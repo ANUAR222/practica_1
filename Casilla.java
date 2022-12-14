@@ -51,7 +51,6 @@ public class Casilla {
 
     private void recibeJugador_calle (int actual, ArrayList<Jugador> todos){
         if (Sorpresas.jugadorCorrecto(actual,todos)){
-            juez = 5;
         }
     }
 
