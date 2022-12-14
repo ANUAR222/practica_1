@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Casilla {
 
+    private int carcel;
+    private float importe;
+    private String nombre;
+    private TituloPropiedad titulo;
     public int descanso;
     public int calle;
     public float impuesto;
@@ -19,24 +23,51 @@ public class Casilla {
         sorpresa = 0;
     }
 
+    public String getNombre(){
+        return nombre;
+    }
+
+    private TituloPropiedad getTituloPropiedad(){
+        return titulo;
+    }
+
 
     public void informe (int actual, ArrayList<Jugador> todos){
 
         civitas.Diario.getInstance().ocurreEvento("La casilla es "+actual);
+
     }
 
-    public void recibeJugador_impuesto (int actual, ArrayList<Jugador> todos){
-         boolean pagaImpuesto;
-         if (pagaImpuesto = true){
-             impuesto = 500;
-         }
+    Boolean jugadorCorrecto (int actual, ArrayList<Jugador> todos){
+        if(juez == 0 && descanso == 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private void recibeJugador (int actual, ArrayList<Jugador> todos){
+
     }
 
-    public void recibeJugador_juez (int actual, ArrayList<Jugador> todos){
-        boolean encarcelar;
-        if (encarcelar = true){
+    private void recibeJugador_calle (int actual, ArrayList<Jugador> todos){
+        if (Sorpresas.jugadorCorrecto(actual,todos)){
             juez = 5;
         }
+    }
+
+    private void recibeJugador_impuesto (int actual, ArrayList<Jugador> todos){
+            if (Sorpresas.jugadorCorrecto(actual,todos)) {
+                impuesto = 500;
+            }
+
+    }
+
+    private void recibeJugador_juez (int actual, ArrayList<Jugador> todos){
+        if (Sorpresas.jugadorCorrecto(actual,todos)){
+            juez = 5;
+        }
+    }
+    private void recibeJugador_sorpresa (int actual, ArrayList<Jugador> todos){
     }
 
     public String toString () {
@@ -49,12 +80,6 @@ public class Casilla {
         }
     }
 
-    Boolean jugadorCorrecto (int actual, ArrayList<Jugador> todos){
-        if(juez == 0 && descanso == 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
+
 
 }
