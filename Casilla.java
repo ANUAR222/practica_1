@@ -46,11 +46,12 @@ public class Casilla {
         }
     }
     private void recibeJugador (int actual, ArrayList<Jugador> todos){
-
+        todos.add(new Jugador(getNombre()));
     }
 
     private void recibeJugador_calle (int actual, ArrayList<Jugador> todos){
         if (Sorpresas.jugadorCorrecto(actual,todos)){
+            calle = 0;
         }
     }
 
@@ -67,6 +68,9 @@ public class Casilla {
         }
     }
     private void recibeJugador_sorpresa (int actual, ArrayList<Jugador> todos){
+        if (Sorpresas.jugadorCorrecto(actual,todos)){
+            sorpresa = 3;
+        }
     }
 
     public String toString () {
