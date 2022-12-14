@@ -167,13 +167,13 @@ public class Jugador {
     }
     public Boolean puedeSalirCarcelPagando()
     {
-        return saldo >= CasillaCarcel.PRECIO_LIBERTAD;
+        return saldo >= PrecioLibertad;
     }
     public Boolean salirCarcelPagando()
     {
         if (encarcelado && puedeSalirCarcelPagando())
         {
-            paga(CasillaCarcel.PRECIO_LIBERTAD);
+            paga(PrecioLibertad);
             encarcelado = false;
             civitas.Diario.ocurreEvento("El jugador " + nombre + " ha pagado para salir de la carcel");
             return true;
@@ -194,7 +194,7 @@ public class Jugador {
     }
     Boolean pasaPorSalida()
     {
-        modificarSaldo(Casilla.Salida.PREMIO_SALIDA);
+        modificarSaldo(PasoPorSalida);
         civitas.Diario.ocurreEvento("El jugador " + nombre + " ha pasado por la salida");
         return true;
     }
@@ -227,5 +227,88 @@ public class Jugador {
     }
     public int getNumPropiedades() {
         return propiedades.size();
+    }
+    boolean cancelarHipoteca (int ip){
+        boolean result = false;
+        if (encarcelado)
+            return result;
+        if (existeLaPropiedad (ip)){
+            TituloPropiedad propiedad = propiedades.get(ip);
+            float cantidad = propiedad.getImporteCancelarHipoteca();
+            boolean puedoGastar = puedoGastar(cantidad);
+            if (puedoGastar){
+                propiedades.get(ip).cancelarHipoteca(this);
+                result = true;
+            }
+        }
+        return result;
+    }
+    boolean comprar (TituloPropiedad titulo){
+        if (encarcelado)
+            return false;
+        else
+        {
+            if (puedeComprar)
+            {
+                float precio = titulo.getPrecioCompra();
+                if (puedoGastar(precio))
+                {
+                    titulo.comprar(this);
+                    propiedades.add(titulo);
+                    civitas.Diario.ocurreEvento("El jugador " + nombre + " ha comprado la propiedad " + titulo.getNombre());
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+    }
+    boolean construirHotel (int ip) {
+        if (encarcelado)
+            return false;
+        else {
+            if (existeLaPropiedad(ip)) {
+                TituloPropiedad titulo = propiedades.get(ip);
+                titulo.construirHotel(this);
+                civitas.Diario.ocurreEvento("El jugador " + nombre + " ha construido un hotel en la propiedad " + titulo.getNombre());
+                return true;
+            } else
+                return false;
+        }
+    }
+    boolean construirCasa (int ip){
+        if (encarcelado)
+            return false;
+        else
+        {
+            if (existeLaPropiedad(ip))
+            {
+                TituloPropiedad titulo = propiedades.get(ip);
+
+                titulo.construirCasa(this);
+                civitas.Diario.ocurreEvento("El jugador " + nombre + " ha construido una casa en la propiedad " + titulo.getNombre());
+                return true;
+            }
+            else
+                return false;
+        }
+    }
+    Boolean hipotecar (int ip){
+        if (encarcelado)
+            return false;
+        else
+        {
+            if (existeLaPropiedad(ip))
+            {
+                TituloPropiedad titulo = propiedades.get(ip);
+                boolean hipotecado= titulo.hipotecar(this);
+                civitas.Diario.ocurreEvento("El jugador " + nombre + " ha hipotecado la propiedad " + titulo.getNombre());
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }
