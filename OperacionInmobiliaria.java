@@ -1,2 +1,14 @@
 public class OperacionInmobiliaria {
+    private int numPropiedad;
+    private GestionesInmobiliarias gestion;
+    public GestionesInmobiliarias getGestion(){
+        return gestion;
+    }
+    public int getNumPropiedad(){
+        return numPropiedad;
+    }
+    public void OperacionInmobiliaria(GestionesInmobiliarias gest,int ip){
+        gest = getGestion();
+        ip = getNumPropiedad();
+    }
 }
