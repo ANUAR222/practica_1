@@ -1,58 +1,54 @@
+import java.util.ArrayList;
 
 public class Controlador {
+    private static final boolean COMPRAR =  true;
+    private static final boolean GESTIONAR = true;
+    private static final boolean SALIR_CARCEL = true;
     private CivitasJuego juego;
     private VistaTextual vista;
-
-    public Controlador(CivitasJuego juego, VistaTextual vista) {
+    public Controlador(CivitasJuego juego, VistaTextual vista){
         this.juego = juego;
         this.vista = vista;
     }
-
-    public void juega() {
+    public void juega(){
         vista.setCivitasJuego(juego);
-
-        while(!juego.finalDelJuego()) {
+        while(!juego.finalDelJuego()){
             vista.actualizarVista();
             vista.pausa();
-            vista.siguientePaso(juego);
-
-            Object EstadoJuego = juego.getEstadoJuego();
-            if (juego.getEstado() != EstadoJuego &&
-                    juego.getEstado() != EstadoJuego) {
+            juego.siguientePaso();
+            if(juego.getJugadorActual().getEncarcelado()){
                 vista.mostrarEventos();
             }
-
-            OperacionesJuego operacion = juego.getOperacionesPendientes();
-
-            if(operacion == OperacionesJuego.COMPRAR) {
-                if(vista.comprar()) {
-                    juego.comprar();
+            if(!juego.finalDelJuego()){
+                boolean operacion = juego.getOperacion();
+                if (operacion == COMPRAR) {
+                    if (vista.comprar()) {
+                        juego.comprar();
+                    }
+                    juego.siguientePasoCompletado(OperacionesJuego.COMPRAR);
+                } else if (operacion == GESTIONAR) {
+                    vista.gestionar();
+                    int gestion = vista.getGestion();
+                    int propiedad = vista.getPropiedad();
+                    OperacionInmobiliaria op = new OperacionInmobiliaria(gestion, propiedad);
+                    juego.gestionar(op);
+                    if (gestion == 5) {
+                        juego.siguientePasoCompletado(OperacionesJuego.GESTIONAR);
+                    }
+                } else if (operacion == SALIR_CARCEL) {
+                    if (vista.salirCarcel() == SalidasCarcel.PAGANDO) {
+                        juego.salirCarcelPagando();
+                    } else {
+                        juego.salirCarcelTirando();
+                    }
+                    juego.siguientePasoCompletado(OperacionesJuego.SALIR_CARCEL);
                 }
-
-                juego.siguientePasoCompletado(operacion);
-            } else if(operacion == OperacionesJuego.GESTIONAR) {
-                vista.gestionar();
-                int propiedad = vista.getGestion();
-                TipoGestion gestion = vista.getPropiedad();
-
-                OperacionInmobiliaria operacionInmobiliaria = new OperacionInmobiliaria(gestion, propiedad);
-
-                if (gestion == TipoGestion.TERMINAR) {
-                    juego.siguientePasoCompletado(operacionInmobiliaria);
-                } else {
-                    juego.gestionar(operacionInmobiliaria);
-                }
-            } else if(operacion == OperacionesJuego.SALIRCARCEL) {
-                if(vista.salirCarcel()) {
-                    juego.salirCarcelPagando();
-                } else {
-                    juego.salirCarcelTirando();
-                }
-
-                juego.siguientePasoCompletado(operacion);
             }
         }
-
-        vista.mostrarRanking();
+        ArrayList<Jugador> ranking = juego.ranking();
+        System.out.println("Ranking de jugadores: ");
+        for(int i = 0; i < ranking.size(); i++){
+            System.out.println((i+1) + "º " + ranking.get(i).getNombre());
+        }
     }
 }
