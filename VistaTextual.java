@@ -1,32 +1,10 @@
+
 import civitas.Diario;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 class VistaTextual {
-  /* Deberás implementar los siguientes métodos de la vista:
-• void setCivitasJuego(CivitasJuego civitas): da valor al atributo civitas, el modelo, para que
-lo conozca la vista y pueda consultarlo directamente, de cara a mostrar información sobre él.
-También llama a actualizarVista() para mostrar el estado actual del juego.
-• void actualizarVista(): muestra información en forma de texto del jugador actual y sus
-propiedades, y de la casilla actual. Utiliza getJugador y getCasillaActual (de CivitasJuego) y
-aplica el método toString a los objetos devueltos por esos métodos para construir la salida.
-• SalidasCarcel salirCarcel (): debe mostrar un menú preguntando por la forma de salida de
-la cárcel elegida y devolver el valor del enumerado correspondiente a esa opción.
-• Respuestas comprar (): debe mostrar un menú preguntando si se desea comprar la calle a la
-que se ha llegado y devolver el valor del enumerado correspondiente a SI ó NO.
-• void gestionar (): debe mostrar un menú (usando el método menu) preguntando por el
-número de gestión inmobiliaria elegida (e incluyendo la acción de TERMINAR) y después
-obtener el índice de la propiedad del jugador actual, sobre la que se desea realizar la gestión.
-Almacena ambos valores respectivamente en los atributos de instancia iGestion e
-iPropiedad.
-• int getGestion(): devuelve el valor del atributo iGestion.
-• int getPropiedad(): devuelve el valor del atributo iPropiedad.
-• void mostrarSiguienteOperacion (OperacionesJuego operación): mostrar en consola la
-siguiente operación que va a realizar el juego. Dicha operación es la que recibe como
-argumento (o parámetro).
-• void mostrarEventos() : mientras el diario tenga eventos pendientes, obtenerlos y mostrarlos
-en consola */
   CivitasJuego juegoModel; 
   int iGestion=-1;
   int iPropiedad=-1;
