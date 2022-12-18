@@ -2,39 +2,60 @@ import java.util.Random;
 
 
 public class Dado {
-    private Random Numerodado = new Random();
-    private int ultimoResultado = 1 + Numerodado.nextInt(6);
+    // Atributos de instancia
+    private Random random;
+    private int ultimoResultado;
     private boolean debug;
-    private static int SalidaCarcel = 5;
-    private Dado instance;
 
-    public int tirar(){
-       if (debug == true) {
-           ultimoResultado = 1;
-       } return ultimoResultado;
+    // Atributos de clase
+    private static Dado instance;
+    private static final int SalidaCarcel = 5;
+
+    // Constructor privado sin argumentos
+    private Dado() {
+        random = new Random();
+        ultimoResultado = 0;
+        debug = false;
     }
 
-    public boolean salgoDeLaCarcel() {
-        if(debug == true){
-            boolean salgoDeLaCarcel = true;
-        }
-        return false;
-    }
-    public int quienEmpieza(int n){
-        return 0;
-    }
-
-    public void setDebug (Boolean d){
-        debug=d;
-        if(debug==true) {
-            civitas.Diario.ocurreEvento("debug");
+    // Método de clase para obtener la única instancia de Dado
+    public static Dado getInstance() {
+        if (instance == null) {
+            instance = new Dado();
         }
 
-}
-    public int getUltimoResultado(){
-    return ultimoResultado;
-    }
-    public Dado getInstance(){
         return instance;
+    }
+
+    // Método tirar
+    public int tirar() {
+        if (debug) {
+            ultimoResultado = 1;
+        } else {
+            ultimoResultado = random.nextInt(6) + 1;
+        }
+
+        return ultimoResultado;
+    }
+
+    // Método salgoDeLaCarcel
+    public boolean salgoDeLaCarcel() {
+        return tirar() >= SalidaCarcel;
+    }
+
+    // Método quienEmpieza
+    public int quienEmpieza(int n) {
+        return tirar() % n;
+    }
+
+    // Método setDebug
+    public void setDebug(boolean d) {
+        debug = d;
+        Diario.getInstance().ocurreEvento("Modo debug " + (debug ? "activado" : "desactivado"));
+    }
+
+    // Método getUltimoResultado
+    public int getUltimoResultado() {
+        return ultimoResultado;
     }
 }
