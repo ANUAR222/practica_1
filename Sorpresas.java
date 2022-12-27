@@ -33,6 +33,16 @@ public class Sorpresas {
         texto=text;
         valor=value;
     }
+    //Sorpresa que indica que el jugador debe convertirse. Al aplicar esta sorpresa
+    //se sustituirá al jugador por un nuevo JugadorEspeculador en la lista de jugadores, invocando para
+    //ello al constructor, que recibirá como parámetros el jugador de partida y la fianza especificada en el
+    //valor de la carta sorpresa.
+    Sorpresas (Sorpresa TipoSorpresa,int fianza){
+        init();
+        tipo=TipoSorpresa;
+        texto="Felicidades, te has convertido en un Jugador Especulador";
+        valor=fianza;
+    }
     void init(){
         tab= null;
         mazoS= null;
@@ -68,6 +78,9 @@ public class Sorpresas {
                 case SALIRCARCEL:
                     aplicarAJugador_salirCarcel(actual,todos);
                     break;
+                case ESPECULADOR:
+                    aplicarAJugador_especulador(actual,todos);
+                    break;
             }
         }
     }
@@ -75,6 +88,14 @@ public class Sorpresas {
         if(jugadorCorrecto(actual,todos)){
             informe(actual,todos);
             todos.get(actual).encarcelar(tab.getCarcel());
+        }
+    }
+
+    public void aplicarAJugador_especulador(int actual, ArrayList<Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+            informe(actual,todos);
+            JugadorEspeculador nuevo = new JugadorEspeculador(todos.get(actual),valor);
+            todos.set(actual, nuevo);
         }
     }
     public void aplicarAJugador_irACasilla(int actual, ArrayList<Jugador> todos){
@@ -127,12 +148,12 @@ public class Sorpresas {
     }
     public void salirDelMazo(){
         if(tipo==Sorpresa.SALIRCARCEL){
-            MazoSorpresas.inhabilitarCartaEspecial(this);
+            mazoS.inhabilitarCartaEspecial(this);
         }
     }
     public void usada(){
         if(tipo==Sorpresa.SALIRCARCEL){
-            MazoSorpresas.habilitarCartaEspecial(this);
+            mazoS.habilitarCartaEspecial(this);
         }
     }
 

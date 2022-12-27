@@ -156,7 +156,9 @@ public class Jugador {
                 return false;
         }
     }
-
+    public String toString(){
+        return "Jugador{" + "nombre=" + nombre + ", encarcelado=" + encarcelado + ", saldo=" + saldo + ", numCasillaActual=" + numCasillaActual + ", puedeComprar=" + puedeComprar + ", salvoconducto=" + salvoconducto + ", propiedades=" + propiedades + '}';
+    }
     public boolean existeLaPropiedad(int ip) {
         return ip >= 0 && ip < propiedades.size();
     }
@@ -310,5 +312,25 @@ public class Jugador {
             else
                 return false;
         }
+    }
+
+     int getCasasMax() {
+        return Casasmax;
+    }
+
+    int getHotelesMax() {
+        return HotelesMax;
+    }
+
+    protected boolean tengoSalvoconducto() {
+        return salvoconducto != null;
+    }
+
+    protected boolean puedoPagarFianza(int fianza) {
+        return saldo >= fianza;
+    }
+
+    protected void pagarFianza(int fianza) {
+        paga(fianza);
     }
 }
