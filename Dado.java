@@ -4,10 +4,9 @@ import java.util.Random;
 
 public class Dado {
 
-    private ArrayList<Jugador> jugadores;
 
     private Random Numerodado = new Random();
-    private int ultimoResultado = 1 + Numerodado.nextInt(6);
+    private int ultimoResultado;
     private boolean debug;
     private static int SalidaCarcel = 5;
     private static Dado instance;
@@ -15,6 +14,7 @@ public class Dado {
 
 
     public int tirar(){
+        ultimoResultado = (int)Math.floor(Math.random()*(6-0)+1);
        if (debug == true) {
            return 1;
        } else {return ultimoResultado;}
