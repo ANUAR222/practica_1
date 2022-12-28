@@ -29,11 +29,7 @@ public class Dado {
         }
     }
     public int quienEmpieza(int n){
-        if(n>1){
-            return n-1;
-        } else {
-            return 0;
-        }
+        return (int)Math.floor(Math.random()*(n-0));
     }
 
     public void setDebug (Boolean d){
