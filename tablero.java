@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
 public class tablero {
-        private int numCasillaCarcel;
-        private ArrayList<TipoCasilla> casillas;
+    private int numCasillaCarcel;
         private int porSalida;
+        protected ArrayList<Casilla> casillas;
         private Boolean tieneJuez;
         public tablero(int numCasillaCarcel){
             this.numCasillaCarcel = numCasillaCarcel;
-            casillas = new ArrayList<>();
-            casillas.add(TipoCasilla.SALIDA);
             porSalida = 0;
             tieneJuez = false;
         }
+        Casilla csa = new Casilla();
+
         private Boolean correcto(){
             return casillas.size() > numCasillaCarcel && tieneJuez;
         }
@@ -27,18 +27,19 @@ public class tablero {
             }
             return porSalida;
         }
-        void añadeCasilla(TipoCasilla casilla){
-            if (casillas.size() == numCasillaCarcel){
-                casillas.add(TipoCasilla.CARCEL);
+        void añadeCasilla(Casilla casilla){
+            if (numCasillaCarcel == casillas.size()){
+                casilla.getCarcel();
             }
             casillas.add(casilla);
             if (casillas.size() == numCasillaCarcel){
-                casillas.add(TipoCasilla.CARCEL);
+                casilla.getCarcel();
             }
         }
         void añadeJuez(){
+
             if (!tieneJuez){
-                casillas.add(TipoCasilla.JUEZ);
+                csa.juez = 0;
                 tieneJuez = true;
             }
         }
@@ -53,7 +54,7 @@ public class tablero {
                 int nuevaPosicion = actual + tirada;
                 if (nuevaPosicion >= casillas.size()){
                     porSalida++;
-                    nuevaPosicion = nuevaPosicion % casillas.size();
+                    nuevaPosicion = nuevaPosicion % 8;
                 }
                 return nuevaPosicion;
             }
@@ -66,5 +67,5 @@ public class tablero {
                 return casillas.size() - (origen - destino);
             }
         }
-    }
+}
 

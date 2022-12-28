@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Casilla {
 
-    private int carcel;
+    private static int carcel;
     private float importe;
     private String nombre;
     private TituloPropiedad titulo;
@@ -83,6 +83,11 @@ public class Casilla {
         }
     }
 
-
+    public static int getCarcel(){
+        return carcel;
+    }
+    public float getJuez(){
+        return juez;
+    }
 
 }
