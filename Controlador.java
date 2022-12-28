@@ -1,54 +1,60 @@
+import GUI.CivitasView;
+import GUI.OperacionImobiliaria;
+import GUI.Respuesta;
+
 import java.util.ArrayList;
 
 public class Controlador {
-    private static final boolean COMPRAR =  true;
-    private static final boolean GESTIONAR = true;
-    private static final boolean SALIR_CARCEL = true;
-    private CivitasJuego juego;
-    private VistaTextual vista;
-    public Controlador(CivitasJuego juego, VistaTextual vista){
-        this.juego = juego;
+    private CivitasJuego juegoModel;
+    private CivitasView vista;
+    private VistaTextual vista2;
+
+    public Controlador(CivitasJuego juegoModel, CivitasView vista) {
+        this.juegoModel = juegoModel;
         this.vista = vista;
     }
-    public void juega(){
-        vista.setCivitasJuego(juego);
-        while(!juego.finalDelJuego()){
-            vista.actualizarVista();
-            vista.pausa();
-            juego.siguientePaso();
-            if(juego.getJugadorActual().getEncarcelado()){
-                vista.mostrarEventos();
+
+    public Controlador(CivitasJuego juegoModel, VistaTextual vista) {
+        this.juegoModel = juegoModel;
+        this.vista2 = vista;
+    }
+
+    public void Juega() {
+        while(!this.juegoModel.finalDelJuego()) {
+            this.vista.actualiza();
+            this.vista.pausa();
+            OperacionesJuego sigPaso = this.juegoModel.siguientePaso();
+            this.vista.mostrarSiguienteOperacion(sigPaso);
+            if (sigPaso != OperacionesJuego.PASAR_TURNO) {
+                this.vista.mostrarEventos();
             }
-            if(!juego.finalDelJuego()){
-                boolean operacion = juego.getOperacion();
-                if (operacion == COMPRAR) {
-                    if (vista.comprar()) {
-                        juego.comprar();
+
+            switch (sigPaso) {
+                case COMPRAR:
+                    if (this.vista.comprar() == Respuesta.SI) {
+                        this.juegoModel.Comprar();
                     }
-                    juego.siguientePasoCompletado(OperacionesJuego.COMPRAR);
-                } else if (operacion == GESTIONAR) {
-                    vista.gestionar();
-                    int gestion = vista.getGestion();
-                    int propiedad = vista.getPropiedad();
-                    OperacionInmobiliaria op = new OperacionInmobiliaria(gestion, propiedad);
-                    juego.gestionar(op);
-                    if (gestion == 5) {
-                        juego.siguientePasoCompletado(OperacionesJuego.GESTIONAR);
-                    }
-                } else if (operacion == SALIR_CARCEL) {
-                    if (vista.salirCarcel() == SalidasCarcel.PAGANDO) {
-                        juego.salirCarcelPagando();
+
+                    this.juegoModel.siguientePasoCompletado(sigPaso);
+                    break;
+                case GESTIONAR:
+                    OperacionImobiliaria operacion = this.vista.elegirOperacion();
+                    if (operacion != OperacionImobiliaria.TERMINAR) {
+                        int numero = this.vista.elegirPropiedad();
+                        if (operacion == OperacionImobiliaria.CONSTRUIR_CASA) {
+                            this.juegoModel.construirCasa(numero);
+                        } else {
+                            this.juegoModel.construirHotel(numero);
+                        }
                     } else {
-                        juego.salirCarcelTirando();
+                        this.juegoModel.siguientePasoCompletado(sigPaso);
                     }
-                    juego.siguientePasoCompletado(OperacionesJuego.SALIR_CARCEL);
-                }
             }
         }
-        ArrayList<Jugador> ranking = juego.ranking();
-        System.out.println("Ranking de jugadores: ");
-        for(int i = 0; i < ranking.size(); i++){
-            System.out.println((i+1) + "º " + ranking.get(i).getNombre());
-        }
+
+        System.out.println("\n--RANKING--\n");
+        ArrayList<Jugador> ranking = this.juegoModel.ranking();
+        this.vista.actualiza();
     }
 }
+

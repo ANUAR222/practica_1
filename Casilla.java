@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 
 
-public class Casilla {
+public class Casilla extends TituloPropiedad {
 
     private static int carcel;
     private float importe;
@@ -13,6 +13,18 @@ public class Casilla {
     public float impuesto;
     public float juez;
     public float sorpresa;
+
+    public Casilla() {
+        super();
+        nombre = "salida";
+        titulo = null;
+        importe = 0;
+        descanso = 0;
+        calle = 0;
+        impuesto = 0;
+        juez = 0;
+        sorpresa = 0;
+    }
 
 
     public void init (){
@@ -34,18 +46,18 @@ public class Casilla {
 
     public void informe (int actual, ArrayList<Jugador> todos){
 
-        civitas.Diario.getInstance().ocurreEvento("La casilla es "+actual);
+        Diario.getInstance().ocurreEvento("La casilla es "+actual);
 
     }
 
-    Boolean jugadorCorrecto (int actual, ArrayList<Jugador> todos){
+    Boolean jugadorCorrecto (Jugador actual){
         if(juez == 0 && descanso == 0){
             return true;
         } else {
             return false;
         }
     }
-    private void recibeJugador (int actual, ArrayList<Jugador> todos){
+    void recibeJugador(int actual, ArrayList<Jugador> todos){
         todos.add(new Jugador(getNombre()));
     }
 
@@ -90,4 +102,17 @@ public class Casilla {
         return juez;
     }
 
+    public float getPrecioCompra() {
+        return importe;
+    }
+
+
+    public boolean comprar(Jugador jugador) {
+        if (jugadorCorrecto(jugador)) {
+                jugador.paga(importe);
+                titulo = new TituloPropiedad(nombre, importe, 0.1f, 0.5f, 0.5f);
+                return true;
+        }
+        return false;
+    }
 }

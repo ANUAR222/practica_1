@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Sorpresa_irCarcel extends Sorpresa_clase {
 
-    Sorpresa_irCarcel(tablero tablero) {
+    Sorpresa_irCarcel(Tablero tablero) {
         super("Ve a la carcel");
         this.tablero = tablero;
         valor = tablero.getCarcel();

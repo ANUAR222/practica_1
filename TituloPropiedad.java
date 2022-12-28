@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class TituloPropiedad {
     private String nombre;
 private float alquilerBase;
@@ -12,7 +10,7 @@ private int numCasas;
 private int numHoteles;
 private float precioCompra;
 private float precioEdificar;
-public TituloPropiedad(String nom, float ab, float fr, float hb, float pc, float pe) {
+public TituloPropiedad(String nom, float ab, float fr, float hb, float pc) {
 nombre = nom;
 alquilerBase = ab;
 factorRevalorizacion = fr;
@@ -22,9 +20,14 @@ hipotecado = false;
 numCasas = 0;
 numHoteles = 0;
 precioCompra = pc;
-precioEdificar = pe;
+    precioEdificar = pc * 0.5f;
 }
-public String getNombre() {
+
+    public TituloPropiedad() {
+
+    }
+
+    public String getNombre() {
 return nombre;
 }
 public float getPrecioCompra() {
@@ -147,4 +150,8 @@ public int cantidadCasasHoteles() {
 public String toString() {
 return "TituloPropiedad{" + "nombre=" + nombre + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", factorInteresesHipoteca=" + factorInteresesHipoteca + ", hipotecaBase=" + hipotecaBase + ", hipotecado=" + hipotecado + ", propietario=" + propietario + ", numCasas=" + numCasas + ", numHoteles=" + numHoteles + ", precioCompra=" + precioCompra + ", precioEdificar=" + precioEdificar + '}';
 }
+
+    public void setPropietario(Jugador jugador) {
+        propietario = jugador;
+    }
 }

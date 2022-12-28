@@ -6,12 +6,12 @@ public class MazoSorpresas {
     private boolean barajada;
     private int usadas;
 
-    private ArrayList<Sorpresas> sorpresas;
+    private static ArrayList<Sorpresa_porCasaHotel> sorpresas;
     private boolean debug;
     private static ArrayList<Sorpresas> cartasEspeciales;
-    private Sorpresas ultimaSorpresa;
+    private Sorpresa_porCasaHotel ultimaSorpresa;
     private void init(){
-        sorpresas = new ArrayList<Sorpresas>();
+        sorpresas = new ArrayList<Sorpresa_porCasaHotel>();
         cartasEspeciales = new ArrayList<Sorpresas>();
         usadas=0;
         barajada=false;
@@ -28,12 +28,12 @@ public class MazoSorpresas {
         init();
         debug=false;
     }
-    void alMazo(Sorpresas s){
+    void alMazo(Sorpresa_porCasaHotel s){
         if(barajada==false){
             sorpresas.add(s);
         }
     }
-    Sorpresas siguiente(){
+    Sorpresa_porCasaHotel siguiente(){
         if(barajada==false || usadas== sorpresas.size() ){
             if(debug==false){
                 Collections.shuffle(sorpresas);
@@ -49,7 +49,7 @@ public class MazoSorpresas {
     }
     public static void inhabilitarCartaEspecial(Sorpresas sorpresa){
         boolean existe = contains(sorpresa);
-        if(existe==true){
+        if(existe){
             remove(sorpresa);
             cartasEspeciales.add(sorpresa);
             Diario.ocurreEvento("Carta especial inhabilitada");
@@ -63,14 +63,18 @@ public class MazoSorpresas {
             Diario.ocurreEvento("Carta especial habilitada");
         }
     }
-    public void addSorpresa(Sorpresas sorpresa){
+    public static void addSorpresa(Sorpresa_porCasaHotel sorpresa){
         sorpresas.add(sorpresa);
     }
-    public boolean contains(Sorpresas sorpresa){
+    public static boolean contains(Sorpresas sorpresa){
         return sorpresas.contains(sorpresa);
     }
-    public void remove(Sorpresas sorpresa){
+    public static void remove(Sorpresas sorpresa){
         sorpresas.remove(sorpresa);
     }
 
+    public void alMazo(Sorpresa_pagarCobrar pagar) {
+
+
+    }
 }

@@ -3,17 +3,17 @@ import java.util.ArrayList;
 public class Sorpresas {
     private String texto;
     private int valor;
-    private tablero tab;
+    private Tablero tab;
     private Sorpresa tipo;
     private MazoSorpresas mazoS;
-    Sorpresas(Sorpresa TipoSorpresa, tablero tabler) {
+    Sorpresas(Sorpresa TipoSorpresa, Tablero tabler) {
         init();
         valor=tabler.getCarcel();
         texto="La fortuna te sonrie, consigues un viaje gratuito a la Carcel. Disfruta tu falta de libertad";
         tipo=TipoSorpresa;
         tab=tabler;
     }
-    Sorpresas(Sorpresa TipoSorpresa, tablero tabler,int value){
+    Sorpresas(Sorpresa TipoSorpresa, Tablero tabler, int value){
         init();
         valor=value;
         texto="Sientes que tu casilla actual es muy aburrida. Toca teletransportarse a una nueva.";
@@ -50,11 +50,11 @@ public class Sorpresas {
 
     }
    
-    public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
+    public static boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
         return actual>=0 && actual<todos.size();
     }
     public void informe(int actual, ArrayList<Jugador> todos){
-        civitas.Diario.getInstance().ocurreEvento("Se ha aplicado la sorpresa "+texto+" al jugador "+todos.get(actual).getNombre());
+        Diario.getInstance().ocurreEvento("Se ha aplicado la sorpresa "+texto+" al jugador "+todos.get(actual).getNombre());
     }
     public void aplicarAJugador(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual,todos)){

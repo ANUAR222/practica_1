@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public class tablero {
+public class Tablero {
     private int numCasillaCarcel;
         private int porSalida;
         protected ArrayList<Casilla> casillas;
         private Boolean tieneJuez;
-        public tablero(int numCasillaCarcel){
+        public Tablero(){
             this.numCasillaCarcel = numCasillaCarcel;
             porSalida = 0;
             tieneJuez = false;
@@ -22,9 +22,6 @@ public class tablero {
             return numCasillaCarcel;
         }
         int getPorSalida(){
-            if (porSalida > 0){
-                porSalida--;
-            }
             return porSalida;
         }
         void añadeCasilla(Casilla casilla){
@@ -53,7 +50,7 @@ public class tablero {
             if (correcto()){
                 int nuevaPosicion = actual + tirada;
                 if (nuevaPosicion >= casillas.size()){
-                    porSalida++;
+        nuevaPosicion -= casillas.size();
                     nuevaPosicion = nuevaPosicion % 8;
                 }
                 return nuevaPosicion;
@@ -67,5 +64,18 @@ public class tablero {
                 return casillas.size() - (origen - destino);
             }
         }
+
+    public boolean computarPasoPorSalida() {
+        if (porSalida > 0){
+            porSalida--;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    void aniadeCasilla(Casilla casilla) {
+        this.casillas.add(casilla);
+    }
 }
 

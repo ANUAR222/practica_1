@@ -1,9 +1,7 @@
-package civitas;
 
 
 
-
-enum EstadosJuego {
+public enum EstadoJuego {
   INICIO_TURNO,
   DESPUES_CARCEL,
   DESPUES_AVANZAR,

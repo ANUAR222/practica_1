@@ -40,7 +40,7 @@ public class Jugador {
             if (tieneSalvoconducto())
             {
                 perderSalvoconducto();
-                civitas.Diario.ocurreEvento("El jugador " + nombre + " se libra de la carcel");
+                Diario.ocurreEvento("El jugador " + nombre + " se libra de la carcel");
                 return false;
             }
             else
@@ -55,7 +55,7 @@ public class Jugador {
         {
             moverACasilla(numCasillaCarcel);
             encarcelado = true;
-            civitas.Diario.ocurreEvento("El jugador " + nombre + " ha sido encarcelado");
+            Diario.ocurreEvento("El jugador " + nombre + " ha sido encarcelado");
         }
         return encarcelado;
     }
@@ -112,7 +112,7 @@ public class Jugador {
     public Boolean modificarSaldo(float cantidad)
     {
         saldo += cantidad;
-        civitas.Diario.ocurreEvento("El jugador " + nombre + " ha modificado su saldo en " + cantidad);
+        Diario.ocurreEvento("El jugador " + nombre + " ha modificado su saldo en " + cantidad);
         return true;
     }
     public Boolean moverACasilla(int numCasilla)
@@ -123,7 +123,7 @@ public class Jugador {
         {
             numCasillaActual = numCasilla;
             puedeComprar = false;
-            civitas.Diario.ocurreEvento("El jugador " + nombre + " se ha movido a la casilla " + numCasilla);
+            Diario.ocurreEvento("El jugador " + nombre + " se ha movido a la casilla " + numCasilla);
             return true;
         }
     }
@@ -146,7 +146,7 @@ public class Jugador {
                 if (titulo.vender(this))
                 {
                     propiedades.remove(ip);
-                    civitas.Diario.ocurreEvento("El jugador " + nombre + " ha vendido la propiedad " + titulo.getNombre());
+                    Diario.ocurreEvento("El jugador " + nombre + " ha vendido la propiedad " + titulo.getNombre());
                     return true;
                 }
                 else
@@ -177,7 +177,7 @@ public class Jugador {
         {
             paga(PrecioLibertad);
             encarcelado = false;
-            civitas.Diario.ocurreEvento("El jugador " + nombre + " ha pagado para salir de la carcel");
+            Diario.ocurreEvento("El jugador " + nombre + " ha pagado para salir de la carcel");
             return true;
         }
         else
@@ -188,7 +188,7 @@ public class Jugador {
         if (Dado.salgoDeLaCarcel())
         {
             encarcelado = false;
-            civitas.Diario.ocurreEvento("El jugador " + nombre + " ha salido de la carcel");
+            Diario.ocurreEvento("El jugador " + nombre + " ha salido de la carcel");
             return true;
         }
         else
@@ -197,7 +197,7 @@ public class Jugador {
     Boolean pasaPorSalida()
     {
         modificarSaldo(PasoPorSalida);
-        civitas.Diario.ocurreEvento("El jugador " + nombre + " ha pasado por la salida");
+        Diario.ocurreEvento("El jugador " + nombre + " ha pasado por la salida");
         return true;
     }
     int compareTo(Jugador otro)
@@ -245,7 +245,7 @@ public class Jugador {
         }
         return result;
     }
-    boolean comprar (TituloPropiedad titulo){
+    boolean comprar (Casilla titulo){
         if (encarcelado)
             return false;
         else
@@ -257,7 +257,7 @@ public class Jugador {
                 {
                     titulo.comprar(this);
                     propiedades.add(titulo);
-                    civitas.Diario.ocurreEvento("El jugador " + nombre + " ha comprado la propiedad " + titulo.getNombre());
+                    Diario.ocurreEvento("El jugador " + nombre + " ha comprado la propiedad " + titulo.getNombre());
                     return true;
                 }
                 else
@@ -274,7 +274,7 @@ public class Jugador {
             if (existeLaPropiedad(ip)) {
                 TituloPropiedad titulo = propiedades.get(ip);
                 titulo.construirHotel(this);
-                civitas.Diario.ocurreEvento("El jugador " + nombre + " ha construido un hotel en la propiedad " + titulo.getNombre());
+                Diario.ocurreEvento("El jugador " + nombre + " ha construido un hotel en la propiedad " + titulo.getNombre());
                 return true;
             } else
                 return false;
@@ -290,7 +290,7 @@ public class Jugador {
                 TituloPropiedad titulo = propiedades.get(ip);
 
                 titulo.construirCasa(this);
-                civitas.Diario.ocurreEvento("El jugador " + nombre + " ha construido una casa en la propiedad " + titulo.getNombre());
+                Diario.ocurreEvento("El jugador " + nombre + " ha construido una casa en la propiedad " + titulo.getNombre());
                 return true;
             }
             else
@@ -306,7 +306,7 @@ public class Jugador {
             {
                 TituloPropiedad titulo = propiedades.get(ip);
                 boolean hipotecado= titulo.hipotecar(this);
-                civitas.Diario.ocurreEvento("El jugador " + nombre + " ha hipotecado la propiedad " + titulo.getNombre());
+                Diario.ocurreEvento("El jugador " + nombre + " ha hipotecado la propiedad " + titulo.getNombre());
                 return true;
             }
             else
@@ -333,4 +333,22 @@ public class Jugador {
     protected void pagarFianza(int fianza) {
         paga(fianza);
     }
+
+    public String getSaldo() {
+        return "Saldo: " + saldo;
+    }
+
+    public TituloPropiedad[] getPropiedades() {
+        return propiedades.toArray(new TituloPropiedad[propiedades.size()]);
+    }
+
+    public boolean enBancarrota() {
+        return saldo < 0;
+    }
+
+    public void puedeComprarCasilla() {
+        puedeComprar = true;
+    }
+
+
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public abstract class Sorpresa_clase {
 
-    protected tablero tablero;
+    protected Tablero tablero;
     private String texto;
     int valor;
 
