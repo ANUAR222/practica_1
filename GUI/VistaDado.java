@@ -7,10 +7,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-/**
- *
- * @author fvelasco
- */
 public class VistaDado extends JDialog {
   
   private static VistaDado instance = null;
