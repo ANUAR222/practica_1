@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-/**
- *
- * @author Alejandro Rosales Cantero
- */
 public class VistaTextual  {
     
   private static String separador = "=====================";
