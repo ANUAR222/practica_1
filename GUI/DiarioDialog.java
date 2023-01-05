@@ -3,10 +3,7 @@ package GUI;
 import civitas.Diario;
 import java.util.ArrayList;
 
-/**
- *
- * @author Alejandro Rosales Cantero
- */
+
 public class DiarioDialog extends javax.swing.JDialog {
 
     Diario diario;
