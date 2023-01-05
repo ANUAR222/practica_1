@@ -2,10 +2,6 @@ package GUI;
 
 import civitas.Casilla;
 
-/**
- *
- * @author Alejandro Rosales Cantero
- */
 public class CasillaPanel extends javax.swing.JPanel {
 
     /**
